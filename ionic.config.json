@@ -1,0 +1,7 @@
+{
+  "name": "mercado-ion-mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

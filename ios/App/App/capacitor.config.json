@@ -1,0 +1,6 @@
+{
+	"appId": "mercado.amigao.br",
+	"appName": "mercado-ion-mobile",
+	"webDir": "dist/mercado-ion-mobile",
+	"bundledWebRuntime": false
+}

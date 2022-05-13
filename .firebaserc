@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "mercadoamigao-frontend"
+  },
+  "targets": {
+    "mercadoamigao-frontend": {
+      "hosting": {
+        "mercado-frontend": [
+          "mercadoamigao-frontend"
+        ]
+      }
+    }
+  }
+}
