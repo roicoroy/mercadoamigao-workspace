@@ -1,0 +1,20 @@
+<ion-grid *ngIf="todos">
+  <ion-row>
+    <ion-col size="2">id</ion-col>
+    <ion-col size="2">name</ion-col>
+    <ion-col size="2">complete</ion-col>
+    <ion-col size="3"> edit </ion-col>
+    <ion-col size="3"> delete </ion-col>
+  </ion-row>
+  <ion-row *ngFor="let todo of todos | async">
+    <ion-col size="3">{{ todo.id }}</ion-col>
+    <ion-col size="3">{{ todo.attributes.name }}</ion-col>
+    <ion-col size="3">
+      <ion-button (click)="editTodo(todo)">Edit</ion-button>
+    </ion-col>
+    <ion-col size="3">
+      <ion-button (click)="deleteTodo(todo.id)">Delete</ion-button>
+    </ion-col>
+  </ion-row>
+
+</ion-grid>

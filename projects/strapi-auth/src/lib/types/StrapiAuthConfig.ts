@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 export type StrapiAuthProviders =
   | 'github'
   | 'facebook'
@@ -13,6 +14,8 @@ export type StrapiAuthProviders =
   | 'auth0';
 
 export type StrapiAuthRoutes = {
+  // default: /home
+  home?: string;
   // default: /auth/login
   login?: string;
   // default: /auth/logout

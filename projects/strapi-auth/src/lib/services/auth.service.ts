@@ -228,6 +228,7 @@ export class AuthService {
    * Logout user
    */
   public async logout(): Promise<void> {
+    console.log('logout!!!@@@@@');
     this.isAuthenticated = false;
     this.user = null;
     this.authState.next();

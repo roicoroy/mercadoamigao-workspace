@@ -7,6 +7,4 @@ export interface IReqAuthRegister {
   confirmed?: boolean;
   blocked?: boolean;
   role?: string;
-  created_by?: string;
-  updated_by?: string;
 }

@@ -6,11 +6,24 @@ const routes: Routes = [
     path: '',
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
+  // {
+  //   path: 'auth',
+  //   loadChildren: () =>
+  //     import('./auth/auth.module').then((m) => m.AuthModule)
+  // },
   {
-    path: 'auth',
+    path: 'login',
     loadChildren: () =>
-      import('./auth/auth.module').then((m) => m.AuthModule)
-  }
+      import('./auth/login/login.module').then((m) => m.LoginPageModule)
+  },
+  {
+    path: 'sucess',
+    loadChildren: () => import('./pages/stripe/sucess/sucess.module').then( m => m.SucessPageModule)
+  },
+  {
+    path: 'cancel',
+    loadChildren: () => import('./pages/stripe/cancel/cancel.module').then( m => m.CancelPageModule)
+  },
   // {
   //   path: '',
   //   redirectTo: 'home',
