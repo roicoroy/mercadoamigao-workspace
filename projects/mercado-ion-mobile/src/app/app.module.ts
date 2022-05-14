@@ -16,12 +16,7 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { StrapiAuthModule } from 'projects/strapi-auth/src/public-api';
-import { environment } from '../environments/environment';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { NbSidebarModule, NbMenuModule, NbDatepickerModule, NbDialogModule, NbWindowModule, NbToastrModule, NbLayoutModule, NbThemeModule } from '@nebular/theme';
-import { ThemeModule } from 'projects/mercado-frontend/src/app/@theme/theme.module';
-import { NbEvaIconsModule } from '@nebular/eva-icons';
+
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
 }
@@ -51,26 +46,6 @@ export function createTranslateLoader(http: HttpClient) {
     NgxsLoggerPluginModule.forRoot(),
     NgxsModule.forRoot([
     ]),
-    StrapiAuthModule.forRoot({
-      strapi_base_url: environment.API_BASE_PATH || 'http://localhost:1337',
-      auth_providers: ['google'],
-      routes: {
-        login: '/auth/login',
-        register: '/auth/register',
-        logoutRedirect: '/'
-      }
-    }),
-    NgbModule,
-    ThemeModule.forRoot(),
-    NbSidebarModule.forRoot(),
-    NbMenuModule.forRoot(),
-    NbDatepickerModule.forRoot(),
-    NbDialogModule.forRoot(),
-    NbWindowModule.forRoot(),
-    NbToastrModule.forRoot(),
-    NbThemeModule.forRoot({ name: 'default' }),
-    NbLayoutModule,
-    NbEvaIconsModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'en-GB' },
@@ -79,10 +54,3 @@ export function createTranslateLoader(http: HttpClient) {
   bootstrap: [AppComponent],
 })
 export class AppModule { }
-
-declare module '@angular/core' {
-  interface ModuleWithProviders<T = any> {
-    ngModule: Type<T>;
-    providers?: Provider[];
-  }
-}

@@ -128,7 +128,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   update(): void {
     this.clearErrors();
     this.submitted = true;
-    const updateRequest: any = {
+    const updateRequest: IReqUserUpdate = {
       username:
         this.userObj.username &&
         this.oldUserObj.username !== this.userObj.username
@@ -186,11 +186,11 @@ export class ProfileComponent implements OnInit, OnDestroy {
     const updateRequest: IReqUserUpdate = {
       email: null,
       username: null,
-      password: this.userObj.email && this.userObj.password_confirmation
-        ? this.userObj.password
-        : null,
-      oldPassword: this.userObj.oldPassword,
-      id: 0
+      password:
+        this.userObj.email && this.userObj.password_confirmation
+          ? this.userObj.password
+          : null,
+      oldPassword: this.userObj.oldPassword
     };
 
     if (!updateRequest.password) {

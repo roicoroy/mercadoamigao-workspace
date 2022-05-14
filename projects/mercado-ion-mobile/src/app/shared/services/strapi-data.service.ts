@@ -5,8 +5,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Browser } from '@capacitor/browser';
 import { Platform } from '@ionic/angular';
-import { environment } from 'src/environments/environment';
 import { Device } from '@capacitor/device';
+import { environment } from 'projects/mercado-frontend/src/environments/environment';
 const openCapacitorSite = async () => {
   await Browser.open({ url: 'http://capacitorjs.com/' });
 };

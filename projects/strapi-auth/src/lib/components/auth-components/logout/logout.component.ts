@@ -10,16 +10,13 @@ import { AuthService } from '../../../services/auth.service';
 export class LogoutComponent implements OnInit, OnDestroy {
   redirectDelay = 0;
 
-  constructor(
-    protected authService: AuthService,
-    protected router: Router
-  ) { }
+  constructor(protected authService: AuthService, protected router: Router) {}
 
   ngOnInit(): void {
     this.logout();
   }
 
-  ngOnDestroy(): void { }
+  ngOnDestroy(): void {}
 
   logout(): void {
     this.authService.logout().then(() => {

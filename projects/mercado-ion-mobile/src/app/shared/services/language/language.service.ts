@@ -8,7 +8,7 @@ export const SAVED_LANGUAGE = 'saved_language';
   providedIn: 'root'
 })
 export class LanguageService {
-  languages: Array<LanguageModel> = new Array<LanguageModel>();
+  languages: LanguageModel[] = new Array<LanguageModel>();
 
   constructor(
     public translate: TranslateService,

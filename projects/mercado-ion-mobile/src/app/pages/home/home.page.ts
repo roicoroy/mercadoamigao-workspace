@@ -2,8 +2,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Store } from '@ngxs/store';
-import { AuthService } from 'projects/strapi-auth/src/public-api';
-
 @Component({
   selector: 'app-home',
   templateUrl: 'home.page.html',
@@ -12,7 +10,6 @@ import { AuthService } from 'projects/strapi-auth/src/public-api';
 export class HomePage implements OnInit {
   constructor(
     protected router: Router,
-    protected authService: AuthService,
   ) { }
 
   ngOnInit(): void {
@@ -25,10 +22,7 @@ export class HomePage implements OnInit {
   onSlideChange() {
   }
   logout(): void {
-    this.authService.logout().then(() => {
-      this.router.navigateByUrl('auth/login');
-    });
-
+    this.router.navigateByUrl('login');
   }
   profile() {
     this.router.navigateByUrl('tabs/profile');

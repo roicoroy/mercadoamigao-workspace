@@ -1,7 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
-import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from 'projects/strapi-auth/src/public-api';
+import { LanguageService } from './shared/services/language/language.service';
 
 @Component({
   selector: 'app-root',
@@ -10,32 +8,21 @@ import { AuthService } from 'projects/strapi-auth/src/public-api';
 })
 export class AppComponent implements OnDestroy, OnInit {
   constructor(
-    public titleService: Title,
-    private translate: TranslateService,
-    private authService: AuthService
+    private language: LanguageService,
   ) {
-    // this.translate.use('en-GB');
-    this.authService.setDefaultTranslation(translate);
+    this.initializeApp();
+   }
+  async initializeApp() {
 
-    this.translate.get('page-title').subscribe((title) => {
-      this.setTitle(title);
-    });
-
-    if (authService.isAuthenticated && !authService.getUser()) {
-      this.authService.loadUser();
-    }
-    this.authService.AuthState.subscribe(() => {
-      if (authService.isAuthenticated && !authService.getUser()) {
-        this.authService.loadUser();
-      }
-    });
-  }
-  public setTitle(newTitle: string): void {
-    this.titleService.setTitle(newTitle);
+    try {
+      // await SplashScreen.hide();
+      // await StatusBar.setStyle({ style: Style.Dark });
+      this.language.initTranslate();
+    // eslint-disable-next-line no-empty
+    } catch (err) {}
   }
   ngOnInit(): void { }
 
   ngOnDestroy(): void {
-    const test = 't';
   }
 }
