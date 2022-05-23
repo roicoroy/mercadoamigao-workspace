@@ -16,7 +16,7 @@ import { IonStorageService } from '../services/ionstorage.service';
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate, CanActivateChild {
+export class IonAuthGuard implements CanActivate, CanActivateChild {
   constructor(
     private authService: IonAuthService,
     private router: Router,

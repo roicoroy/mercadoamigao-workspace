@@ -30,5 +30,8 @@ export class HomePage implements OnInit {
   uploadPage() {
     this.router.navigateByUrl('upload');
   }
+  profilePage() {
+    this.router.navigateByUrl('profile');
+  }
 
 }

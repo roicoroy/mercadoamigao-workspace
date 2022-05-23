@@ -1,120 +1,96 @@
 /* eslint-disable @typescript-eslint/naming-convention */
-import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectorRef, Component, Inject, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { AnimationController } from '@ionic/angular';
 import { fade, fadeWithZoom } from '../../shared/animations/animations';
-import { AlertsService } from '../../shared/services/alert.service';
+import { Keyboard } from '@capacitor/keyboard';
+import { KeypadFacade } from '../../shared/keypad/keypad.facade';
 import { IonAuthService } from '../../shared/services/ion.auth.service';
-import { IonStorageService } from '../../shared/services/ionstorage.service';
-
+import { Store } from '@ngxs/store';
+import { UserActions } from '../../shared/states/user/user.actions';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
   styleUrls: ['./login.page.scss'],
   animations: [fade(), fadeWithZoom()],
 })
-export class LoginPage implements OnInit, OnDestroy {
-
-  showMessages: any = {
-    error: true,
-    success: true
+export class LoginPage implements OnInit {
+  login_form: FormGroup;
+  validation_messages = {
+    username: [
+      { type: 'required', message: 'Username is required.' },
+      { type: 'minlength', message: 'Username must be at least 5 characters long.' },
+      { type: 'maxlength', message: 'Username cannot be more than 25 characters long.' },
+      { type: 'pattern', message: 'Your username must contain only numbers and letters.' },
+      { type: 'validUsername', message: 'Your username has already been taken.' }
+    ],
+    name: [
+      { type: 'required', message: 'Name is required.' }
+    ],
+    email: [
+      { type: 'required', message: 'Email is required.' },
+      { type: 'pattern', message: 'Please enter a valid email.' }
+    ],
+    password: [
+      { type: 'required', message: 'Password is required.' },
+      { type: 'minlength', message: 'Password must be at least 5 characters long.' },
+      { type: 'pattern', message: 'Your password must contain at least one uppercase, one lowercase, and one number.' }
+    ],
+    confirm_password: [
+      { type: 'required', message: 'Confirm password is required.' }
+    ],
+    matching_passwords: [
+      { type: 'areEqual', message: 'Password mismatch.' }
+    ],
+    terms: [
+      { type: 'pattern', message: 'You must accept terms and conditions.' }
+    ],
   };
-
-  errors: string[] = [];
-  messages: string[] = [];
-  submitted = false;
-  rememberMe = false;
-
-  authLoginReq = {
-    email: 'test@test.com',
-    password: 'Rwbento123!'
-  };
-
-  config = {
-    passwordRequired: true,
-    passwordMinLength: 6,
-    passwordMaxLength: 60,
-    emailRequired: true
-  };
-
   constructor(
-    protected authService: IonAuthService,
-    protected cd: ChangeDetectorRef,
-    protected router: Router,
-    protected translate: TranslateService,
-    private alerts: AlertsService,
-    private storage: IonStorageService
-  ) { }
-
-  ngOnInit(): void {
-    // this.rememberMe = false;
+    public formBuilder: FormBuilder,
+    private router: Router,
+    private animationCtrl: AnimationController,
+    private keyboardFacade: KeypadFacade,
+    private auth: IonAuthService,
+    private store: Store,
+  ) {
   }
-
-  ngOnDestroy(): void { }
-  ionViewWillEnter() {
-    this.unLock();
+  ngOnInit() {
+    this.login_form = this.formBuilder.group({
+      email: new FormControl('test@test.com', Validators.compose([
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ])),
+      password: new FormControl('Rwbento123!', Validators.compose([
+        Validators.minLength(5),
+        Validators.required,
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
+      ])),
+    });
   }
-  async unLock() {
-    const Password = await this.storage.storageGet('user_pass');
-    const Biometric = await this.storage.storageGet('biometric');
+  onSubmit(values) {
+    // console.log(values);
+    // this.router.navigate(['/user']);
+    console.log(this.login_form.value);
 
-    if (Password) {
-      if (Biometric) {
-        this.alerts.fingerPrintAIO();
-      } else {
-        this.alerts.checkPass();
-      }
-    } else {this.alerts.setPass();};
-  }
 
-  async removeData() {
-    await this.storage.storageRemove('user_pass');
-    await this.storage.storageRemove('biometric');
-    this.alerts.toastInfo('Data Removed!');
   }
   public login(): void {
-    this.errors = [];
-    this.messages = [];
-    this.submitted = true;
-
-    this.authService
-      .login(this.authLoginReq.email, this.authLoginReq.password)
-      .subscribe((res) => {
-        // console.log(res);
-        this.submitted = false;
-        this.router.navigateByUrl('home');
-        // console.log(this.authService.isAuthenticated);
-      },
-        (err: HttpErrorResponse) => {
-          this.submitted = false;
-          // console.log(err);
-          if (err.status === 400) {
-            switch (err.error.data[0].messages[0].id) {
-              case 'Auth.form.error.confirmed':
-                this.errors.push(
-                  this.translate.instant('errors.auth.login.email_verification')
-                );
-                break;
-              case 'Auth.form.error.blocked':
-                this.errors.push(
-                  this.translate.instant('errors.auth.login.account_blocked')
-                );
-                break;
-
-              default:
-                this.errors.push(
-                  this.translate.instant('errors.auth.login.password_or_email')
-                );
-                break;
-            }
-          } else {
-            this.errors.push(
-              this.translate.instant('errors.auth.login.undefined')
-            );
-          }
+    console.log(this.login_form.value.email, this.login_form.value.password);
+    this.auth.login(this.login_form.value.email, this.login_form.value.password).subscribe(
+      (userObj) => {
+        console.log(userObj);
+        if (userObj != null) {
+          this.store.dispatch(new UserActions.Set(userObj));
+          this.router.navigateByUrl('tabs/home');
         }
-      );
+      },
+      (err) => {
+        console.log(err.data);
+        console.log(err.error);
+      },
+    );
   }
   registerPage() {
     this.router.navigateByUrl('register');

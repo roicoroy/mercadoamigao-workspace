@@ -25,61 +25,10 @@
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
 @import '~@nebular/theme/styles/globals';
-/* Importing Bootstrap SCSS file. */
-@import '~bootstrap/scss/bootstrap';
-@import '~@nebular/theme/styles/theming';
-@import '~@nebular/theme/styles/themes/default';
 
-@include nb-install() {
-  @include nb-theme-global();
-};
-/* You can add global styles to this file, and also import other style files */
-
-
-@import '~@nebular/theme/styles/theming';
-@import '~@nebular/theme/styles/themes/default';
-
-$nb-themes: nb-register-theme(( // add your variables here like:
-    // footer-background-color:#FFE8E3,
-    // header-background-color:#FFE8E3,
-    // sidebar-background-color:#FFE8E3,
-
-
-    color-success-default: darkgreen,
-    color-success-active: green,
-    color-success-hover: green,
-    color-success-focus: green,
-  ), default, default);
-
-  
-html,
-body {
-  height: 100%;
+.isKeyboad {
+  background-color: red;
 }
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
+:host.isKeyboad {
+    background-color: blue;
 }
-
-html,
-body {
-  height: 100%;
-}
-
-body {
-  margin: 0;
-  font-family: Roboto, "Helvetica Neue", sans-serif;
-}
-
-$nb-themes: nb-register-theme(( // add your variables here like:
-    // footer-background-color:#FFE8E3,
-    // header-background-color:#FFE8E3,
-    // sidebar-background-color:#FFE8E3,
-
-
-    color-success-default: darkgreen,
-    color-success-active: green,
-    color-success-hover: green,
-    color-success-focus: green,
-  ), default, default);

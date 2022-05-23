@@ -30,14 +30,15 @@ export class TokenInterceptor implements HttpInterceptor {
                     const clonedReq = this.addToken(request, token);
                     return next.handle(clonedReq);
                 }),
-                catchError((response: HttpErrorResponse) => throwError(response))
+                catchError(
+                    (response: HttpErrorResponse) => throwError(response)
+                ,)
             );
         }
         // return;
     }
     private addToken(request: HttpRequest<any>, token: any) {
         if (token) {
-            // console.log(token);
             const clone: HttpRequest<any> = request.clone({
                 setHeaders: {
                     Authorization: `Bearer ${token}`
@@ -45,9 +46,6 @@ export class TokenInterceptor implements HttpInterceptor {
             });
             return clone;
         }
-        // if (!token) {
-        //     this.router.navigateByUrl('login');
-        // }
         return request;
     }
 }

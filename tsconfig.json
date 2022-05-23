@@ -18,6 +18,10 @@
       "dom"
     ],
     "paths": {
+      "firebase": [
+        "dist/firebase/firebase",
+        "dist/firebase"
+      ],
       "strapi-auth": [
         "dist/strapi-auth/strapi-auth",
         "dist/strapi-auth"

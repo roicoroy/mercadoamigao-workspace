@@ -307,6 +307,37 @@
           }
         }
       }
+    },
+    "firebase": {
+      "projectType": "library",
+      "root": "projects/firebase",
+      "sourceRoot": "projects/firebase/src",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/firebase/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/firebase/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/firebase/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/firebase/src/test.ts",
+            "tsConfig": "projects/firebase/tsconfig.spec.json",
+            "karmaConfig": "projects/firebase/karma.conf.js"
+          }
+        }
+      }
     }
   },
   "defaultProject": "strapi-auth",

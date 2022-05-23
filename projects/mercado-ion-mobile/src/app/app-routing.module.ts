@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { IonAuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
+    loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule),
+    canActivate: [IonAuthGuard],
   },
   {
     path: 'login',
@@ -18,6 +20,10 @@ const routes: Routes = [
   {
     path: 'cancel',
     loadChildren: () => import('./pages/stripe/cancel/cancel.module').then( m => m.CancelPageModule)
+  },
+  {
+    path: 'register',
+    loadChildren: () => import('./auth/register/register.module').then( m => m.RegisterPageModule)
   },
   // {
   //   path: '',

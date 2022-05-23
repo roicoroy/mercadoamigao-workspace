@@ -16,6 +16,8 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 import { Drivers } from '@ionic/storage';
 import * as CordovaSQLiteDriver from 'localforage-cordovasqlitedriver';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { KeyboardState } from './shared/keypad/keyboard/keyboard.state';
+import { UserState } from './shared/states/user/user.state';
 
 export function createTranslateLoader(http: HttpClient) {
   return new TranslateHttpLoader(http, './assets/i18n/', '.json');
@@ -45,6 +47,8 @@ export function createTranslateLoader(http: HttpClient) {
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsModule.forRoot([
+      KeyboardState,
+      UserState
     ]),
   ],
   providers: [
